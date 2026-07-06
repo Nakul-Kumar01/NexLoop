@@ -29,6 +29,7 @@ import UpdateProblem from './components/updateProblem';
 import About from './components/About';
 import Contact from './components/Contact';
 import Privacy from './components/privacy';
+import axiosClient from './utils/axiosClient';
 
 
 
@@ -45,6 +46,17 @@ function App() {
   useEffect( () => {
     dispatch(checkAuth());  // checks token -> sets axios headers (Authorization)
     // dispatch(fetchProfile());  // does not work here bcoz fetchProfile() runs immediately, Token is NOT ready yet -> Axios request /user/myprofile fails or is blocked Redux profile state stays null
+
+
+    const ping = async () => {
+          try{
+            const res = await axiosClient.get("/health");
+          }
+          catch(err){
+            console.log(err);
+          }
+        }
+        ping();
   }, [dispatch]); // it will run only once // also empty array also work
 
   useEffect(() => {

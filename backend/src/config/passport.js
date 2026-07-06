@@ -7,7 +7,7 @@ const GitHubStrategy = require("passport-github2").Strategy;
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,  // step 0: store these so that you can redirect to backend from google login page
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "https://nexloops.xyz/user/google/callback"  // this should be same in google cloud console's redirect URI and Backend route
+    callbackURL: "https://nexloop.onrender.com/user/google/callback"  // this should be same in google cloud console's redirect URI and Backend route
 },
     async (accessToken, refreshToken, profile, cb) => { // At this moment, google has already authenticated the user. Passport now asks you:“What should I do with this user?” 
     //after getting permission from user, google will redirect to this callback URL with accessToken, refreshToken and profile info
@@ -43,7 +43,7 @@ passport.use(new GoogleStrategy({
 passport.use(new GitHubStrategy({
     clientID: process.env.GITHUB_CLIENT_ID,
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    callbackURL: "https://nexloops.xyz/user/github/callback"
+    callbackURL: "https://nexloop.onrender.com/user/github/callback"
 },
     async (accessToken, refreshToken, profile, done) => {
         // accessToken: A temporary GitHub token // Allows your server to call GitHub APIs Used to fetch email, repos, etc.

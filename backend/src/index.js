@@ -41,6 +41,12 @@ app.use('/ai',aiRouter);
 app.use("/video",videoRouter);
 app.use("/contest",contestRouter);
 app.use("/interview",userMiddleware,AiInterview);
+app.get("/health", (req, res) => {  // wakeup backend
+  res.status(200).json({
+    status: "ok",
+    message: "Server is running"
+  });
+});
 
 
 const InitializeConnection = async () => {
