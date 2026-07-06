@@ -32,7 +32,13 @@ const register = async (req, res) => {
     // no need of await
     const token = jwt.sign({ _id: user._id, emailId: req.body.emailId, role: "user" }, process.env.JWT_KEY, { expiresIn: '1h' });
     // console.log("done4");
-    res.cookie('token', token, { maxAge: 60 * 60 * 1000 }); // you can also use expire 
+    // res.cookie('token', token, { maxAge: 60 * 60 * 1000 }); // you can also use expire 
+    res.cookie("token", token, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+    maxAge: 60 * 60 * 1000
+     });
     res.status(201).json({
       user: reply,
       message: "Login successful"
@@ -83,7 +89,13 @@ const login = async (req, res) => {
 
     const token = jwt.sign({ _id: user._id, emailId: req.body.emailId, role: user.role }, process.env.JWT_KEY, { expiresIn: '1h' });
     // console.log("done4");
-    res.cookie('token', token, { maxAge: 60 * 60 * 1000 });
+    // res.cookie('token', token, { maxAge: 60 * 60 * 1000 });
+    res.cookie("token", token, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+    maxAge: 60 * 60 * 1000
+     });
     res.status(201).json({
       user: reply,
       message: "Login successful"
@@ -112,7 +124,12 @@ const logout = async (req, res) => {
     await redisClient.expireAt(`token:${token}`, payload.exp); // set expiry same as token expiry
     // console.log("third");
     // Clear the Cookie
-    res.cookie("token", null, { expires: new Date(Date.now()) });
+    // res.cookie("token", null, { expires: new Date(Date.now()) });
+    res.clearCookie("token", {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none"
+     });
     res.status(200).send("Logged out successfully");
   }
   catch (err) {
@@ -335,7 +352,13 @@ const googleLogin = async (req, res) => {
     // console.log("user",req.user);
     const token = jwt.sign({ _id: req.user._id, emailId: req.user.emailId, role: "user" }, process.env.JWT_KEY, { expiresIn: '1h' });
 
-    res.cookie('token', token, { maxAge: 60 * 60 * 1000 });
+    // res.cookie('token', token, { maxAge: 60 * 60 * 1000 });
+    res.cookie("token", token, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+    maxAge: 60 * 60 * 1000
+      });
 
     res.redirect(process.env.CLIENT_URL); // step 4: redirect frontend after successful login
   }
@@ -350,7 +373,13 @@ const githubLogin = async (req, res) => {
     console.log("user", req.user);
     const token = jwt.sign({ _id: req.user._id, emailId: req.user.emailId, role: "user" }, process.env.JWT_KEY, { expiresIn: '1h' });
 
-    res.cookie('token', token, { maxAge: 60 * 60 * 1000 });
+    // res.cookie('token', token, { maxAge: 60 * 60 * 1000 });
+    res.cookie("token", token, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+    maxAge: 60 * 60 * 1000
+     });
 
     res.redirect(process.env.CLIENT_URL);
   }
