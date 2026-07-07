@@ -13,9 +13,10 @@ passport.use(new GoogleStrategy({
     //after getting permission from user, google will redirect to this callback URL with accessToken, refreshToken and profile info
 
         try {
-            // console.log("Google profile:", profile);
+            console.log("in passport")
+            console.log("Google profile:", profile);
             let user = await User.findOne({ googleId: profile.id });
-
+            console.log(user);
             if (!user) {
                 user = await User.create({
                     firstName: profile.displayName || null,
