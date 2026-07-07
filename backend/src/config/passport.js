@@ -11,7 +11,7 @@ passport.use(new GoogleStrategy({
 },
     async (accessToken, refreshToken, profile, cb) => { // At this moment, google has already authenticated the user. Passport now asks you:“What should I do with this user?” 
     //after getting permission from user, google will redirect to this callback URL with accessToken, refreshToken and profile info
-
+    // problem : agr phale kisi ne normal login kiya , then same email se google login krega to error dega
         try {
             console.log("in passport")
             console.log("Google profile:", profile);
