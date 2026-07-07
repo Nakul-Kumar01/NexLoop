@@ -349,8 +349,8 @@ const leaderboard = async (req, res) => {
 
 const googleLogin = async (req, res) => {
   try {
-    console.log("login me")
-    console.log("user",req.user);
+    // console.log("login me")
+    // console.log("user",req.user);
     const token = jwt.sign({ _id: req.user._id, emailId: req.user.emailId, role: "user" }, process.env.JWT_KEY, { expiresIn: '1h' });
 
     // res.cookie('token', token, { maxAge: 60 * 60 * 1000 });
@@ -360,7 +360,7 @@ const googleLogin = async (req, res) => {
     sameSite: "none",
     maxAge: 60 * 60 * 1000
       });
-    console.log("redirect")
+    // console.log("redirect")
     res.redirect(process.env.CLIENT_URL); // step 4: redirect frontend after successful login
   }
   catch (err) {
@@ -381,7 +381,8 @@ const githubLogin = async (req, res) => {
     sameSite: "none",
     maxAge: 60 * 60 * 1000
      });
-
+     
+    console.log("redirect");
     res.redirect(process.env.CLIENT_URL);
   }
   catch (err) {
